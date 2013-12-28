@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/js/jquery-1.8.3.min.js"></script>
+	<title>index</title>
+
+	<style type="text/css">
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	</style>	
+</head>
+
+<body>
+	<img id="still" src="./still.jpg" />
+
+<script>
+var socket = io.connect('http://192.168.1.11:8083');
+//var socket = io.connect('http://192.168.0.144:8083');
+
+//var sargs = $.map(args, function(val,i){ return i + ' ' + val }).join(' ');
+
+socket.on('news', function (data) {
+	console.log(data);
+
+	if (data.status == 'raspicamDone'){
+		$('#still').attr('src', './still.jpg?ts=' + (new Date()).getTime());
+	}
+
+});
+
+
+$('#still').click(function(){
+	socket.emit('snap');
+});
+</script>
+
+	
+</body>
+</html>
