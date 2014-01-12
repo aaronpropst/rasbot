@@ -3,15 +3,15 @@ var express = require("express"),
 	socketServer = require('http').createServer(handler),
 	io = require('socket.io').listen(socketServer),
 	fs = require('fs'),
-	config = require('./appconfig');
-	
+	config = require('./appconfig'),
+	rr = require("raspirobot"),
+	robot;
+
 if (typeof config.mockBot !== 'undefined'){
-	var robot = config.mockBot;
+	robot = config.mockBot;
 }else{
-	var robot = require("raspirobot");
+	robot = new rr.RaspiRobot();
 }
-
-
 
 robot.setup();
 
