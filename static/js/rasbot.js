@@ -1,5 +1,3 @@
-
-
 rasbot = (function ($) {
 	"use strict";
 
@@ -15,11 +13,10 @@ rasbot = (function ($) {
 		
 		socket = io.connect('http://' + document.location.hostname + ':8082');
 		
-		kaInterval = setInterval(rasbot.kaTick,500);
+		//kaInterval = setInterval(rasbot.kaTick,500);
 		
 		socket.on('connect', function(data){
 			console.log('connected to socket');
-			
 		});
 		
 		
@@ -47,25 +44,23 @@ rasbot = (function ($) {
 			socket.emit('upEvent', { obj: e.currentTarget.id });
 			console.log('tapup');
 		});//.on('click', fsb.tapHandler);
-
-
+		
 		console.log('fsb.init...');
 	};
 	
-	var kaTick = function(){
-		if (keepalive){
-			socket.emit('keepAlive', {});
-			console.log('ka - on');
-		}
-	};
+	// var kaTick = function(){
+	// 		if (keepalive){
+	// 			socket.emit('keepAlive', {});
+	// 			console.log('ka - on');
+	// 		}
+	// 	};
 	
 	// Public
 	return { 
 		socket: function(){ return socket },
 		url: url,
-		kaTick: kaTick,
+		//kaTick: kaTick,
 		init: init
 	};
 
 } (jQuery));
-

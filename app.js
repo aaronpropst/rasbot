@@ -4,6 +4,27 @@ var express = require("express"),
 	io = require('socket.io').listen(socketServer),
 	fs = require('fs'),
 	config = require('./appconfig');
+	
+if (true){
+	var robot = { 
+		setup: 		function(){ console.log('mock function called') },
+		setGPIO: 	function(){ console.log('mock function called') },
+		getGPIO: 	function(){ console.log('mock function called') },
+		setMotor: 	function(){ console.log('mock function called') },
+		getMotor: 	function(){ console.log('mock function called') },
+		setLED: 	function(){ console.log('mock function called') },
+		getLED: 	function(){ console.log('mock function called') },
+		getOC: 		function(){ console.log('mock function called') },
+		setOC: 		function(){ console.log('mock function called') },
+		setSwitchCallback: function(){ console.log('mock function called') }
+	};
+}else{
+	var robot = require("raspirobot");
+}
+
+
+
+robot.setup();
 
 //sockets
 socketServer.listen(config.socketServerPort);
@@ -37,13 +58,16 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on('downEvent', function (data) {
 		console.log(data);
+		controls[data.obj]();
 	});
 	socket.on('upEvent', function (data) {
 		console.log(data);
+		robot.setMotor('left', 0);
+		robot.setMotor('right', 0);
 	});
-	socket.on('keepAlive', function (data) {
-		console.log(data);
-	});
+	//socket.on('keepAlive', function (data) {
+	//	console.log(data);
+	//});
 	
 	
 	
@@ -51,6 +75,23 @@ io.sockets.on('connection', function (socket) {
 	
 });
 
-
+var controls = {
+	forward: function(){
+		robot.setMotor('left', 1, 1);
+		robot.setMotor('right', 1, 1);
+	},
+	back: function(){
+		robot.setMotor('left', 1, 0);
+		robot.setMotor('right', 1, 0);
+	},
+	left: function(){
+		robot.setMotor('left', 1, 1);
+		robot.setMotor('right', 1, 0);
+	},
+	right: function(){
+		robot.setMotor('left', 1, 0);
+		robot.setMotor('right', 1, 1);
+	}
+};
 
 
