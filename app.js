@@ -5,19 +5,8 @@ var express = require("express"),
 	fs = require('fs'),
 	config = require('./appconfig');
 	
-if (true){
-	var robot = { 
-		setup: 		function(){ console.log('mock function called') },
-		setGPIO: 	function(){ console.log('mock function called') },
-		getGPIO: 	function(){ console.log('mock function called') },
-		setMotor: 	function(){ console.log('mock function called') },
-		getMotor: 	function(){ console.log('mock function called') },
-		setLED: 	function(){ console.log('mock function called') },
-		getLED: 	function(){ console.log('mock function called') },
-		getOC: 		function(){ console.log('mock function called') },
-		setOC: 		function(){ console.log('mock function called') },
-		setSwitchCallback: function(){ console.log('mock function called') }
-	};
+if (typeof config.mockBot !== 'undefined'){
+	var robot = config.mockBot;
 }else{
 	var robot = require("raspirobot");
 }
