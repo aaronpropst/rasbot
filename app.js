@@ -1,4 +1,5 @@
 var express = require("express"),
+    bodyParser = require('body-parser'),
 	webserver = express(),
 	socketServer = require('http').createServer(handler),
 	io = require('socket.io').listen(socketServer),
@@ -21,7 +22,7 @@ socketServer.listen(config.socketServerPort);
 webserver.listen(config.webServerPort);
 
 
-webserver.use(express.bodyParser());
+webserver.use(bodyParser.urlencoded({extended: true}));
 
 //I don't honestly know why I need one of these..  TODO: look that up.
 var handler = function(req, res){};
@@ -29,14 +30,14 @@ var handler = function(req, res){};
 //ROUTING:  set up routes for the paths we want public.
 webserver.get("/", function(req, res){
 	res.render(__dirname + '/views/index.ejs', {
-		layout:false,
-		locals: { cacheKey: '?t=' + (new Date()).getTime() }
+ 		cacheKey: '?t=' + (new Date()).getTime()
 	});
 });
 	
 webserver.use('/config', express.static(__dirname + '/config'));
 webserver.use('/content', express.static(__dirname + '/content'));
 webserver.use('/static', express.static(__dirname + '/static'));
+webserver.use('/socket.io/', express.static(__dirname + '/node_modules/socket.io/node_modules/socket.io-client/'));
 
 
 
