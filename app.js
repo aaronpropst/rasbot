@@ -75,12 +75,12 @@ var controls = {
 		robot.setMotor('right', 1, 0);
 	},
 	left: function(){
-		robot.setMotor('left', 1, 1);
-		robot.setMotor('right', 1, 0);
-	},
-	right: function(){
 		robot.setMotor('left', 1, 0);
 		robot.setMotor('right', 1, 1);
+	},
+	right: function(){
+		robot.setMotor('left', 1, 1);
+		robot.setMotor('right', 1, 0);
 	}
 };
 
