@@ -47,13 +47,7 @@ rasbot = (function ($) {
 		
 		console.log('fsb.init...');
 	};
-	
-	// var kaTick = function(){
-	// 		if (keepalive){
-	// 			socket.emit('keepAlive', {});
-	// 			console.log('ka - on');
-	// 		}
-	// 	};
+
 	
 	// Public
 	return { 
