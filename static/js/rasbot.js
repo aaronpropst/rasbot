@@ -17,17 +17,29 @@ rasbot = (function ($) {
 		
 		socket.on('connect', function(data){
 			console.log('connected to socket');
+            $("#main #status").text("Connected...");
+            $("#main #status").toggleClass("good", true);
 		});
 		
 		
 		socket.on('connect_failed', function (data) {
 			console.log('socket connect failed');
 			console.log(data);
+            $("#main #status").text("Socket Failed...");
+            $("#main #status").toggleClass("good", false);
 		});
-		
+        socket.on('disconnect', function (data) {
+            console.log('socket disconnect');
+            console.log(data);
+            $("#main #status").text("Socket Disconnected...");
+            $("#main #status").toggleClass("good", false);
+        });
+
 		socket.on('error', function (data) {
 			console.log('socket error');
 			console.log(data);
+            $("#main #status").text("Socket Error...");
+            $("#main #status").toggleClass("good", false);
 		});
 		
 		
