@@ -4,19 +4,26 @@ var socketServer = require('http').createServer(function(req,res){}),
     Controller = require("./controller"),
     Webserver = require('./webServer');
 
-
+console.log('UI http Server Init');
 var ws = new Webserver(config);
+console.log('Controller Init');
 var controller = new Controller(config);
-
+console.log('Socket Server Init');
 socketServer.listen(config.socketServerPort);
 
 
 var cmdQueue = [];
 
-(function gogo(){
-    var thing = cmdQueue.shift();
-    if (thing) controller[thing]();
-    setTimeout(gogo, 200);
+(function processQueue(){
+    if (cmdQueue.length > 4){
+        controller['stop']();
+        cmdQueue = [];
+        console.log('declared queue bankruptcy');
+    }else{
+        var thing = cmdQueue.shift();
+        if (thing) controller[thing]();
+    }
+    setTimeout(processQueue, 200);
 })();
 
 io.sockets.on('connection', function (socket) {
