@@ -2,7 +2,8 @@ var RaspiRobot = require("raspirobot").RaspiRobot;
 
 
 function Controller(config){
-    if (typeof config.mockBot !== 'undefined'){
+
+    if (typeof config.mockBot !== 'undefined' && process.argv[2] == 'mock'){
         this.robot = config.mockBot;
     }else{
         this.robot = new RaspiRobot();
