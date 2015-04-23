@@ -36,14 +36,20 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on('downEvent', function (data) {
 		console.log(data);
-        cmdQueue.push(data.obj);
-		//controller[data.obj]();
+        	cmdQueue.push(data.obj);
 	});
 	socket.on('upEvent', function (data) {
 		console.log(data);
-        cmdQueue.push('stop');
-        //controller['stop']();
+        	cmdQueue.push('stop');
 	});
+
+	socket.on('sayEvent', function (data) {
+		console.log(data);
+		say.speak(null, data.message);
+	});
+
+
+
 	socket.on('disconnect', function(){
 		say.speak(null, 'player disconnected');
 	});
