@@ -9,7 +9,6 @@ body{
 	height: 100%;
 	width: 100%;
 	color: #fff;
-	padding-top: 1em;
 }
 #header, #question, #answers, #thanks{
 	padding: 1em;
