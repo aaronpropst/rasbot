@@ -17,29 +17,29 @@ rasbot = (function ($) {
 		
 		socket.on('connect', function(data){
 			console.log('connected to socket');
-            $("#main #status").text("Connected...");
-            $("#main #status").toggleClass("good", true);
+            $("#status").text("Connected...");
+            $("#status").toggleClass("good", true);
 		});
 		
 		
 		socket.on('connect_failed', function (data) {
 			console.log('socket connect failed');
 			console.log(data);
-            $("#main #status").text("Socket Failed...");
-            $("#main #status").toggleClass("good", false);
+            $("#status").text("Socket Failed...");
+            $("#status").toggleClass("good", false);
 		});
         socket.on('disconnect', function (data) {
             console.log('socket disconnect');
             console.log(data);
-            $("#main #status").text("Socket Disconnected...");
-            $("#main #status").toggleClass("good", false);
+            $("#status").text("Socket Disconnected...");
+            $("#status").toggleClass("good", false);
         });
 
 		socket.on('error', function (data) {
 			console.log('socket error');
 			console.log(data);
-            $("#main #status").text("Socket Error...");
-            $("#main #status").toggleClass("good", false);
+            $("#status").text("Socket Error...");
+            $("#status").toggleClass("good", false);
 		});
 		
 		
@@ -49,14 +49,23 @@ rasbot = (function ($) {
 			keepalive = true; 
 			socket.emit('downEvent', { obj: e.currentTarget.id });
 			console.log('tapdown');
+            $(e.currentTarget).toggleClass("active",true);
 		});//.on('click', fsb.tapHandler);
 		$('#main a').bind('vmouseup', function(e){
 			e.preventDefault();
 			keepalive = false;
 			socket.emit('upEvent', { obj: e.currentTarget.id });
 			console.log('tapup');
+            $(e.currentTarget).toggleClass("active",false);
 		});//.on('click', fsb.tapHandler);
-		
+
+        $('#speech').bind('keypress', function(e){
+            if(e.keyCode==13){
+                socket.emit('sayEvent', { message: e.currentTarget.value });
+                e.currentTarget.value='';
+            }
+        });
+
 		console.log('fsb.init...');
 	};
 

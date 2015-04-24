@@ -13,7 +13,8 @@ var controller = new Controller(config);
 console.log('Socket Server Init');
 socketServer.listen(config.socketServerPort);
 
-say.speak(null, 'ras bought online, eye pee address is: '+ os.networkInterfaces().wlan0[0].address);
+if (process.argv[2] != 'mock')
+    say.speak(null, 'ras bought online, eye pee address is: '+ os.networkInterfaces().wlan0[0].address);
 
 
 var cmdQueue = [];
