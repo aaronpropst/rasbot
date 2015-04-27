@@ -32,7 +32,8 @@
             width: 33.33%;
         }
 
-		#main a{
+		#main a,
+        #sounds a{
 			text-decoration: none;
 			margin: .5em;
 			padding: .4em;
@@ -46,7 +47,8 @@
 			vertical-align: middle;
             /*float:left;*/
 		}
-        #main a.active{
+        #main a.active,
+        #sounds a.active{
             background: #008800;
         }
         /*
@@ -120,6 +122,12 @@
     <div class="rasform">
         <input type="text" id="speech" name="speech" />
     </div>
+    <div class="buttonBoard">
+        <div id="sounds" class="row">
+
+        </div>
+    </div>
+
 
 <script type="text/javascript" charset="utf-8">
 	$(rasbot.init);

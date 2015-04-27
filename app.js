@@ -1,7 +1,8 @@
 var socketServer = require('http').createServer(function(req,res){}),
 	io = require('socket.io').listen(socketServer),
 	os = require('os'),
-	say = require('say'),
+    say = require('say'),
+    play = require('play'),
 	config = require('./appconfig'),
     Controller = require("./controller"),
     Webserver = require('./webServer');
@@ -49,7 +50,10 @@ io.sockets.on('connection', function (socket) {
 		say.speak(null, data.message);
 	});
 
-
+    socket.on('sound', function(data){
+        console.log(data);
+        play.sound(__dirname + '/sounds/' + data.file);
+    });
 
 	socket.on('disconnect', function(){
 		say.speak(null, 'player disconnected');

@@ -1,6 +1,7 @@
 var express = require("express"),
     bodyParser = require('body-parser'),
-    server = express();
+    server = express(),
+    fs = require('fs');
 
 
 function Webserver (config){
@@ -21,6 +22,11 @@ function Webserver (config){
     server.use('/static', express.static(__dirname + '/static'));
     server.use('/socket.io/', express.static(__dirname + '/node_modules/socket.io/node_modules/socket.io-client/'));
 
+    server.get("/sounds", function(req, res){
+        fs.readdir(__dirname + '/sounds', function(err, files){
+            res.json(files);
+        });
+    });
 }
 
 module.exports = Webserver;

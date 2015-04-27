@@ -66,7 +66,34 @@ rasbot = (function ($) {
             }
         });
 
-		console.log('fsb.init...');
+
+        $.get("/sounds", function(data, status){
+            data.forEach(function(d){
+                console.log(d);
+                $('#sounds').append('<a href="javascript:;">' + d + '</a>');
+            });
+
+
+            $('#sounds a').bind('vmousedown', function(e){
+                e.preventDefault();
+                keepalive = true;
+                socket.emit('sound', { file: $(e.currentTarget).text() });
+                $(e.currentTarget).toggleClass("active",true);
+                console.log($(e.currentTarget).text());
+            });
+            $('#sounds a').bind('vmouseup', function(e){
+                e.preventDefault();
+                keepalive = false;
+                //socket.emit('upEvent', { obj: e.currentTarget.id });
+                $(e.currentTarget).toggleClass("active",false);
+            });
+
+        });
+
+
+
+
+        console.log('fsb.init...');
 	};
 
 	
