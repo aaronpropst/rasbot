@@ -52,7 +52,18 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('sound', function(data){
         console.log(data);
-        play.sound(__dirname + '/sounds/' + data.file);
+	var childProcess = require('child_process'),
+     	proc;
+
+ 	proc = childProcess.exec('mpg321 '+__dirname + '/sounds/' + data.file, function (error, stdout, stderr) {
+   if (error) {
+     console.log(error.stack);
+     console.log('Error code: '+error.code);
+     console.log('Signal received: '+error.signal);
+   }
+   console.log('Child Process STDOUT: '+stdout);
+   console.log('Child Process STDERR: '+stderr);
+ });
     });
 
 	socket.on('disconnect', function(){
