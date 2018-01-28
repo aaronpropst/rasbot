@@ -1,5 +1,5 @@
 module.exports = {
-	webServerPort: 8081,
+	webServerPort: 80,
 	socketServerPort: 8082,
 	//using this so i can run this code on my mac and not trigger the gpio stuff.
 	mockBot: {

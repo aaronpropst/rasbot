@@ -91,6 +91,13 @@ rasbot = (function ($) {
         });
 
 
+            $('#shutdownDiv #shutdown').bind('vmousedown', function(e){
+                e.preventDefault();
+                keepalive = true;
+                socket.emit('shutdownEvent', { });
+                //$(e.currentTarget).toggleClass("active",true);
+                console.log($(e.currentTarget).text());
+            });
 
 
         console.log('fsb.init...');
